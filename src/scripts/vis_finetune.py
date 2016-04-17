@@ -1,6 +1,10 @@
+# In the name of GOD the most compassionate the most merciful
+# Originally developed by Yasse Souri 
+# Just added the search for current directory so that users dont have to use command prompts!
 import numpy as np
 import re
 import click
+import glob, os
 from matplotlib import pylab as plt
 
 
@@ -13,6 +17,12 @@ def main(files):
     ax1.set_xlabel('iteration')
     ax1.set_ylabel('loss')
     ax2.set_ylabel('accuracy %')
+    if not files:
+        print 'no args found'
+        print '\n\rsecond arg just for fun!'
+        os.chdir(".")
+        files = glob.glob("*.log")
+
     for i, log_file in enumerate(files):
         loss_iterations, losses, accuracy_iterations, accuracies, accuracies_iteration_checkpoints_ind = parse_log(log_file)
         disp_results(fig, ax1, ax2, loss_iterations, losses, accuracy_iterations, accuracies, accuracies_iteration_checkpoints_ind, color_ind=i)
